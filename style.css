@@ -33,14 +33,13 @@ h1{
 }
 
 form{
-    background-color: white;
+    background-color: rgba(246, 246, 246, 0.6);
     border-radius: 8px;
     padding: 30px;
-    height: 50%;
-    width: 30%;
+    width: 300px;
     display: flex;
     flex-direction: column;
-    padding-top: 40px;
+    margin-top: 80px;
 }
 
 form label{
