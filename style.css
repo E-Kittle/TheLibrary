@@ -17,6 +17,53 @@ h1{
     padding: 20px;
 }
 
+/* For form overlay - Adds a new book */
+.overlay{
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+
+form{
+    background-color: white;
+    border-radius: 8px;
+    padding: 30px;
+    height: 50%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+}
+
+form label{
+    display: flex;
+    margin-top: 20px;
+}
+
+#submitBook{
+    width: 150px;
+    height: 40px;
+    background-color: aquamarine;
+    align-self: center;
+}
+
+#closeOverlay{
+    background: none;
+    border: 5;
+    padding: 2px;
+    width: 50px;
+    align-self: flex-end;
+}
+
+
 /* Wrapper for the library contents */
 .wrapper{
     display: grid;
@@ -25,6 +72,20 @@ h1{
 }
 
 /* Styling for the data */
+
+#newBookButton {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-style: none;
+    padding: 15px;
+}
+
+#newBookButton:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.data h2{
+    padding-top: 20px;
+}
 table{
     text-align: left;
 }
