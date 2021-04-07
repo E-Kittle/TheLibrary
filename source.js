@@ -57,9 +57,9 @@ const myLibrary = (() => {
     
             //Adds the text content
             titleh3.textContent = obj.title;
-            authorp.textContent = obj.author;
-            pagesp.textContent = obj.pages;
-            readp.textContent = obj.read;
+            authorp.textContent = "By: " + obj.author;
+            pagesp.textContent = "Number of pages: " + obj.pages;
+            readp.textContent = "This book is: " + obj.read;
     
             //Creates and appends an update and delete button to the newBook div
             const delButton = document.createElement('button');
@@ -195,6 +195,11 @@ const myLibrary = (() => {
         else if (pages.value === '0'){
             pages.classList.add('error');
             pagesError.textContent = 'Number of pages cannot be 0';
+            return [];
+        }
+        else if (pages.value >= 1000000){
+            pages.classList.add('error');
+            pagesError.textContent = 'Is your book really that long?';
             return [];
         }
         else{
