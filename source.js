@@ -15,25 +15,22 @@ const myLibrary = (() => {
 
     //Grabs data from the form to create a new book
     const addNewBook = () => {
-        //Grab the data from the form        
+        //Grab the data from the form - returns an empty array if validation fails
         let validated = validateData();
 
-        if (!validated){
-
-        }
-        else{
+        if (validated.length > 0){
             const newBook = bookFactory(validated[0], validated[1], validated[2], validated[3]);
             myLibrary.push(newBook);
-            saveLibrary();
-            // clearForm();         //Use these later but for efficiency I just have them commented out.
-            // overlay.off();
+            clearForm();         
+            overlay.off();
             displayLibrary();
-        }
+            saveLibrary();
     };
+}
     
     //Private method which loops through the myLibrary array to add books to the DOM
     const displayLibrary = () => {
-        loadLibrary();          //Loads the library from the local save. This is really only important for a returning user. Need to set myLibrary = loadLibrary()
+        // loadLibrary();          //Loads the library from the local save. This is really only important for a returning user. Need to set myLibrary = loadLibrary()
 
         //Resets the page
         bookWrapper.innerHTML = '';
@@ -43,6 +40,7 @@ const myLibrary = (() => {
         totalPages = 0;
         readBooks = 0;
         unreadBooks = 0;
+        let index = 0;
 
         //Looks through the myLibrary array to add each book object to the library
         myLibrary.forEach(obj => {
@@ -63,16 +61,27 @@ const myLibrary = (() => {
             pagesp.textContent = obj.pages;
             readp.textContent = obj.read;
     
+            //Creates and appends an update and delete button to the newBook div
+            const delButton = document.createElement('button');
+            delButton.classList.add('delButton');
+            delButton.setAttribute('id', index);
+            delButton.textContent = 'X';
+
+            const updateButton = document.createElement('button');
+            updateButton.classList.add('updateButton');
+            updateButton.setAttribute('id', index);
+            updateButton.textContent = 'Change read status';
+
+            index++;
     
             //Append the new fields
+            newBook.appendChild(delButton);
             newBook.appendChild(titleh3);
             newBook.appendChild(authorp);
             newBook.appendChild(pagesp);
             newBook.appendChild(readp);
+            newBook.appendChild(updateButton);
             bookWrapper.appendChild(newBook);
-
-            //Creates and appends an update and delete button to the newBook div
-
 
 
             //Calculates the running totals for the data
@@ -100,23 +109,45 @@ const myLibrary = (() => {
     }
     
     //Deletes a book from the myLibrary array
-    const deleteBook = () => {
-        
+    const deleteBook = (index) => {
+        if (index === '0'){
+            myLibrary.shift();
+        }
+        else{
+            myLibrary.splice(index, (index));
+        }
+        saveLibrary();
+        displayLibrary();
     };
     
     //Updates the books 'read' status, triggered by the user
-    const updateBook = () => {
-        
+    const updateBook = (index) => {
+        if (myLibrary[index].read === 'read'){
+            myLibrary[index].read = 'unread';
+        }
+        else{
+            myLibrary[index].read = 'read';
+        }
+        saveLibrary();
+        displayLibrary();
     };
     
-    //private function to save myLibrary
+    //private method to save myLibrary
     const saveLibrary = () => {
-        console.log('library saved');
+        localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
     }
     
     //private method to load myLibrary
     const loadLibrary = () => {
-        console.log('library loaded');
+        let library = JSON.parse(localStorage.getItem('myLibrary'));
+        if (library === null) {
+            library = [];
+        }
+        myLibrary.splice(0, myLibrary.length);
+        library.forEach(arr => {
+            myLibrary.push(arr);
+        })
+        displayLibrary();
     };
     
     //Private method to validate the data from the form
@@ -138,7 +169,7 @@ const myLibrary = (() => {
         if (title.value === ''){
             title.classList.add('error');
             titleError.textContent = 'Please enter a title';
-            return false;
+            return [];
         }
         else{
             title.classList.remove('error');
@@ -149,7 +180,7 @@ const myLibrary = (() => {
         if (author.value === ''){
             author.classList.add('error');
             authorError.textContent = 'Please enter an author';
-            return false;
+            return [];
         }
         else{
             author.classList.remove('error');
@@ -159,13 +190,12 @@ const myLibrary = (() => {
         if (pages.value === ''){
             pages.classList.add('error');
             pagesError.textContent = 'Please enter the number of pages';
-            return false;
+            return [];
         }
         else if (pages.value === '0'){
             pages.classList.add('error');
             pagesError.textContent = 'Number of pages cannot be 0';
-            return false;
-
+            return [];
         }
         else{
             pages.classList.remove('error');
@@ -186,7 +216,7 @@ const myLibrary = (() => {
         read.checked = false;
     };
     
-    return {addNewBook, deleteBook, updateBook};
+    return {addNewBook, deleteBook, updateBook, loadLibrary};
 })();
 
 
@@ -203,6 +233,11 @@ const totalBookstd = document.querySelector('#totalBooks');
 const unreadBookstd = document.querySelector('#unreadBooks');
 const readBookstd = document.querySelector('#readBooks');
 const totalPagestd = document.querySelector('#pagesRead');
+
+
+window.onload = function() {
+   myLibrary.loadLibrary(); 
+};
 
 
 
@@ -251,3 +286,27 @@ closeButton.addEventListener('click', () => {
     }
 
 });
+
+
+// event handles for the delete book buttons and update read status buttons
+
+function hasClass(elem, className) {
+    return elem.classList.contains(className);
+}
+
+
+const removeButtons = document.querySelectorAll('.delButton');
+bookWrapper.addEventListener('click', function(e) {
+    if (hasClass(e.target, 'delButton')) {
+        let index = e.target.id;
+        myLibrary.deleteBook(index);
+    }
+})
+
+const updateButtons = document.querySelectorAll('.updateButton');
+bookWrapper.addEventListener('click', function(e) {
+    if (hasClass(e.target, 'updateButton')) {
+        let index = e.target.id;
+        myLibrary.updateBook(index);
+    }
+})
