@@ -22,9 +22,12 @@
                 <h2>Add a New Book</h2>
             <form>
                 <!-- Removed the required for ease of adding new books - Add again in a bit -->
-                <label for="titleInput">Title: </label><input id="titleInput" type="text" required><br>
-                <label for="authorInput">Author: </label><input id="authorInput" type="text" ><br>
-                <label for="pagesInput">Total Pages: </label><input id="pagesInput" type="number"><br>
+                <label for="titleInput">Title: </label><input id="titleInput" type="text">
+                <span class='spanError' id='titleError'></span>
+                <label for="authorInput">Author: </label><input id="authorInput" type="text" >
+                <span class='spanError' id='authorError'></span>
+                <label for="pagesInput">Total Pages: </label><input id="pagesInput" type="number">
+                <span class='spanError' id='pagesError'></span>
                 <div id="readcheckbox">
                 <label for="readInput">Read: </label><input id="readInput" type="checkbox">
                 </div><br>

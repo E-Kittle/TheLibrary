@@ -6,6 +6,7 @@
 
 body{
     background-color: aqua;
+    font-size: 16px;
 }
 
 .header{
@@ -48,17 +49,17 @@ span #formatter{
 
 #formHolder h2{
     text-align: center;
+    padding-bottom: 30px;
 }
 
+/* For the form in the formHolder */
 form{
     padding: 0 30px 10px 30px;
     display: flex;
     flex-direction: column;
 }
 
-form label{
-    margin-top: 30px;
-}
+
 
 #submitBook{
     width: 150px;
@@ -79,6 +80,20 @@ form label{
 
 #readInput {
     margin: 30px 0;
+}
+
+/* Error handling for the form */
+.error{
+    border-color: crimson;
+    height: 2.5em;
+}
+
+.spanError{
+    margin: 0;
+    height: 30px;
+    color: crimson;
+    font-size: 14px;
+    text-align: center;
 }
 
 
@@ -105,12 +120,17 @@ form label{
 .data h2{
     padding-top: 20px;
 }
+
 table{
     text-align: left;
 }
 
-th{
-    padding-top: 15px;
+tr{
+    height: 40px;
+}
+
+td{
+    padding-left: 20px;
 }
 
 

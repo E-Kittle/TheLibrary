@@ -8,31 +8,96 @@ const bookFactory = (title, author, pages, read) => {
 //Section for methods to update/load the library
 const myLibrary = (() => {
     const myLibrary = [];
+    let totalBooks = 0;
+    let totalPages = 0;
+    let readBooks = 0;
+    let unreadBooks = 0;
 
     //Grabs data from the form to create a new book
     const addNewBook = () => {
-        //Grab the data from the form
-        validateData();
-        
-        let arr = validateData();
-        console.log(`title ${arr[0]}, author ${arr[1]}, pages ${arr[2]}, read? ${arr[3]}`);
-        
-        
-        
-        
-        
-        const newBook = document.createElement('div');
-        newBook.classList.add('book');
-        bookWrapper.appendChild(newBook);
-        // overlay.off();
+        //Grab the data from the form        
+        let validated = validateData();
 
-        
+        if (!validated){
+
+        }
+        else{
+            const newBook = bookFactory(validated[0], validated[1], validated[2], validated[3]);
+            myLibrary.push(newBook);
+            saveLibrary();
+            // clearForm();         //Use these later but for efficiency I just have them commented out.
+            // overlay.off();
+            displayLibrary();
+        }
     };
     
     //Private method which loops through the myLibrary array to add books to the DOM
     const displayLibrary = () => {
-        
+        loadLibrary();          //Loads the library from the local save. This is really only important for a returning user. Need to set myLibrary = loadLibrary()
+
+        //Resets the page
+        bookWrapper.innerHTML = '';
+
+        //Resets values for data totals
+        totalBooks = 0;
+        totalPages = 0;
+        readBooks = 0;
+        unreadBooks = 0;
+
+        //Looks through the myLibrary array to add each book object to the library
+        myLibrary.forEach(obj => {
+
+            //Creates the holder for the new book
+            const newBook = document.createElement('div');
+            newBook.classList.add('book');
+    
+            //Creates an element for each of the pieces of information
+            const titleh3 = document.createElement('h3');
+            const authorp = document.createElement('p');
+            const pagesp = document.createElement('p');
+            const readp = document.createElement('p');
+    
+            //Adds the text content
+            titleh3.textContent = obj.title;
+            authorp.textContent = obj.author;
+            pagesp.textContent = obj.pages;
+            readp.textContent = obj.read;
+    
+    
+            //Append the new fields
+            newBook.appendChild(titleh3);
+            newBook.appendChild(authorp);
+            newBook.appendChild(pagesp);
+            newBook.appendChild(readp);
+            bookWrapper.appendChild(newBook);
+
+            //Creates and appends an update and delete button to the newBook div
+
+
+
+            //Calculates the running totals for the data
+            totalBooks++;
+            totalPages += Number(obj.pages);
+            if (obj.read === 'read'){
+                readBooks++;
+            }
+            else{
+                unreadBooks++;
+            }
+        });
+
+        //displays the data to the page
+        displayData();
     };
+
+
+    //Displays the data on the table
+    const displayData = () => {
+        totalPagestd.textContent = totalPages;
+        totalBookstd.textContent = totalBooks;
+        unreadBookstd.textContent = unreadBooks;
+        readBookstd.textContent = readBooks;
+    }
     
     //Deletes a book from the myLibrary array
     const deleteBook = () => {
@@ -46,26 +111,22 @@ const myLibrary = (() => {
     
     //private function to save myLibrary
     const saveLibrary = () => {
-        
+        console.log('library saved');
     }
     
     //private method to load myLibrary
     const loadLibrary = () => {
-        
+        console.log('library loaded');
     };
     
     //Private method to validate the data from the form
     const validateData = () => {
-        //Check to see if title, author, and pages are null
-        //Additionally, check to see if pages is a number
-        const title = document.querySelector('#titleInput');
-        const author = document.querySelector('#authorInput');
-        const pages = document.querySelector('#pagesInput');
-        const read = document.querySelector('#readInput');
         let readStatus;
+        const titleError = document.querySelector('#titleError');
+        const authorError = document.querySelector('#authorError');
+        const pagesError = document.querySelector('#pagesError');
 
         //Checks if the book was read or not
-        console.log(read);
         if (read.checked){
             readStatus = 'read';
         }
@@ -73,26 +134,56 @@ const myLibrary = (() => {
             readStatus = 'unread';
         }
 
+        //Validates each of the inputs and either throws an error or returns an array of the results
         if (title.value === ''){
-            console.log('add error catch')
-            //Return false - This will cause the entire form to be prevented from submitting
-        }
-        else if (author.value === ''){
-            console.log('add error catch')
-            //Return false - This will cause the entire form to be prevented from submitting
-        }        
-        else if (pages.value === ''){
-            console.log('add error catch')
-            //Return false - This will cause the entire form to be prevented from submitting
+            title.classList.add('error');
+            titleError.textContent = 'Please enter a title';
+            return false;
         }
         else{
-            return [title.value, author.value, pages.value, readStatus];
+            title.classList.remove('error');
+            titleError.textContent = '';
+        }
+
+
+        if (author.value === ''){
+            author.classList.add('error');
+            authorError.textContent = 'Please enter an author';
+            return false;
+        }
+        else{
+            author.classList.remove('error');
+            authorError.textContent = '';
+        }        
+
+        if (pages.value === ''){
+            pages.classList.add('error');
+            pagesError.textContent = 'Please enter the number of pages';
+            return false;
+        }
+        else if (pages.value === '0'){
+            pages.classList.add('error');
+            pagesError.textContent = 'Number of pages cannot be 0';
+            return false;
+
+        }
+        else{
+            pages.classList.remove('error');
+            pagesError.textContent = '';
         }
         
-        
-        
-        // const arr = ['title', 'author', 34];
-        // return arr;
+
+        //If everything above checked out, then return the validated data
+            return [title.value, author.value, pages.value, readStatus];
+          
+    };
+
+    //Private method to clear the form fields
+    const clearForm = () => {
+        title.value = '';
+        author.value = '';
+        pages.value = '';
+        read.checked = false;
     };
     
     return {addNewBook, deleteBook, updateBook};
@@ -103,8 +194,15 @@ const myLibrary = (() => {
 //Section for query selectors
 const submitBookButton = document.querySelector('#submitBook');
 const bookWrapper = document.querySelector('.bookWrapper');
-
-
+const title = document.querySelector('#titleInput');
+const author = document.querySelector('#authorInput');
+const pages = document.querySelector('#pagesInput');
+const read = document.querySelector('#readInput');
+const titleError = document.querySelector('#titleError');
+const totalBookstd = document.querySelector('#totalBooks');
+const unreadBookstd = document.querySelector('#unreadBooks');
+const readBookstd = document.querySelector('#readBooks');
+const totalPagestd = document.querySelector('#pagesRead');
 
 
 
