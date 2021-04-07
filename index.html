@@ -16,16 +16,20 @@
     </div>
     <div class="wrapper">
         <div class="overlay">
+            <span id="formatter"></span>
+            <div id="formHolder">
+                <button id="closeOverlay">X</button>
+                <h2>Add a New Book</h2>
             <form>
-                <button id="closeOverlay">Cancel</button>
                 <label for="titleInput">Title: </label><input id="titleInput" type="text" required><br>
                 <label for="authorInput">Author: </label><input id="authorInput" type="text" required><br>
-                <label for="pagesInput">Total Pages: </label><input id="pagesInput" type="number"> required<br>
+                <label for="pagesInput">Total Pages: </label><input id="pagesInput" type="number"required><br>
                 <div id="readcheckbox">
                 <label for="readInput">Read: </label><input id="readInput" type="checkbox">
                 </div><br>
                 <button input type="submit" id="submitBook">Add Book</button>
             </form>
+            </div>
         </div>
         <div class="booksWrapper">
 

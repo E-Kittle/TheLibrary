@@ -10,11 +10,12 @@ body{
 
 .header{
     border-bottom-style: solid;
+    padding: 40px 0 5px 0;
 }
 
 h1{
     text-align: center;
-    padding: 20px;
+    font-size: 60px;
 }
 
 /* For form overlay - Adds a new book */
@@ -32,19 +33,31 @@ h1{
     background-color: rgba(0,0,0,0.5);
 }
 
-form{
+span #formatter{
+    padding: 45px;
+}
+
+#formHolder{   
     background-color: rgba(246, 246, 246, 0.6);
     border-radius: 8px;
-    padding: 30px;
     width: 300px;
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
-    margin-top: 80px;
+}
+
+#formHolder h2{
+    text-align: center;
+}
+
+form{
+    padding: 0 30px 10px 30px;
+    display: flex;
+    flex-direction: column;
 }
 
 form label{
-    display: flex;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 #submitBook{
@@ -58,9 +71,16 @@ form label{
     background: none;
     border: 5;
     padding: 2px;
-    width: 50px;
+    margin: 5px 5px 0 0;
+    width: 30px;
+    position: relative;
     align-self: flex-end;
 }
+
+#readInput {
+    margin: 30px 0;
+}
+
 
 
 /* Wrapper for the library contents */

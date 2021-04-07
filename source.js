@@ -71,13 +71,21 @@ const overlay = (() => {
     return {on, off};
 })();
 
+// Query selector to turn the overlay on
 const overlayButton = document.querySelector('#newBookButton');
 overlayButton.addEventListener('click', () => {
-    console.log('clicked');
     if (!overlayOn){
         overlay.on();
+        overlayOn = true;
     }
-    else{
+});
+
+//Query selector to close the overlay
+const closeButton = document.querySelector('#closeOverlay');
+closeButton.addEventListener('click', () => {
+    if (overlayOn){
         overlay.off();
+        overlayOn = false;
     }
+
 });
