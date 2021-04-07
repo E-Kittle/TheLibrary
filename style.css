@@ -117,7 +117,13 @@ th{
 /* To hold the books */
 .bookWrapper{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    grid-template-columns: repeat(auto-fill, minmax(300px, auto));
+    grid-gap: 50px;
 }
 
 /* Styling for the books */
+.book{
+    background-color: blueviolet;
+    height: 300px;
+    width: 300px;
+}
