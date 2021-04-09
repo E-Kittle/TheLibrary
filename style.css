@@ -167,15 +167,26 @@ textarea {
     flex-direction: column;
 }
 
-.viewBookInfo h2, p, input, label{
+.viewBookInfo h2, p, .extraDIV, .readDIV{
     padding: 18px;
     line-height: 1.5em;
 }
 
+.readDIV label{
+    margin-right: 20px;
+}
+
+.extraDIV{
+    display: flex;
+    flex-direction: column;
+    flex: 1 0;
+}
+
 .viewBookInfo textarea{
     width: 80%;
-    margin: auto;
-    height: 100px;
+    margin: auto 0;
+    min-height: 150px;
+    max-height: 300px;
 }
 
 .viewBookInfo h2{

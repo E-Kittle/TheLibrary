@@ -128,7 +128,6 @@ const myLibrary = (() => {
         //Uses the index to set the 
 
         //Constant for the container
-        const buttonHolder = document.querySelector('.buttonHolder');
         buttonHolder.innerHTML = '';
 
         //Constant for the book information wrapper
@@ -151,7 +150,7 @@ const myLibrary = (() => {
         authorp.innerHTML = "<strong>Author:</strong> " + myLibrary[index].author;
         pagesp.innerHTML = "<strong>Total pages:</strong> " + myLibrary[index].pages;
         readp.innerHTML = "<strong>This book is:</strong> " + myLibrary[index].read;
-        extra.innerHTML = "<strong>Additional Info:</strong> " + myLibrary[index].addInfo;
+        extra.innerHTML = "<strong>Additional Information:</strong> " + myLibrary[index].addInfo;
 
         //For the 'edit information' button
         const updateButton = document.createElement('button');
@@ -171,7 +170,7 @@ const myLibrary = (() => {
     };
 
     //Updates the books 'read' status and 'additional information', triggered by the user
-    const updateBook = (index) => {
+    const updateBookDOM = (index) => {
         console.log(`Updates book: ${index}`);
 
         //These remove the 'read status' and the additional information from the DOM
@@ -196,7 +195,7 @@ const myLibrary = (() => {
         const updateAdditionalInfoLabel = document.createElement('label');
         const updateAdditionalInfo = document.createElement('textarea');
 
-        updateAdditionalInfo.value = extra.textContent;
+        updateAdditionalInfo.value = extra.textContent.replace('Additional Information: ', '');
         updateAdditionalInfoLabel.innerHTML = "<strong>Update the below Additional Information:</strong> ";
 
         readDIV.appendChild(updateReadLabel);
@@ -205,6 +204,25 @@ const myLibrary = (() => {
         extraDIV.appendChild(updateAdditionalInfo);
         bookInfo.appendChild(readDIV);
         bookInfo.appendChild(extraDIV);
+
+        //Remove the updateButton and swap it for a saveButton
+        const updateButton = document.querySelector('.updateButton');
+        buttonHolder.removeChild(updateButton);
+
+        const saveButton = document.createElement('button');
+        saveButton.classList.add('saveUpdate', 'bookButton');
+        saveButton.setAttribute('id', index);
+        saveButton.textContent = 'Save Information';
+        buttonHolder.appendChild(saveButton);
+
+        //All of this updates the DOM for the updateBook
+        //Now I need to create another method that is triggered by the 'save information' button. 
+        //When that button is pressed, it grabs the information from the form, updates the book object, 
+        //updates the DOM (returning it to the viewBook page) and saves the book
+
+
+
+
 
         // if (myLibrary[index].read === 'read') {
         //     myLibrary[index].read = 'unread';
@@ -215,6 +233,10 @@ const myLibrary = (() => {
         // saveLibrary();
         // displayLibrary();
     };
+
+    const updateBook = (index) => {
+
+    }
 
     //Displays the data on the table
     const displayData = () => {
@@ -255,6 +277,15 @@ const myLibrary = (() => {
         displayLibrary();
     };
 
+    const checkReadStatus = () => {
+        if (read.checked) {
+            return 'read';
+        }
+        else {
+            return 'unread';
+        }
+
+    }
     //Private method to validate the data from the form
     const validateData = () => {
         let readStatus;
@@ -264,12 +295,7 @@ const myLibrary = (() => {
         let additionalInfo;
 
         //Checks if the book was read or not
-        if (read.checked) {
-            readStatus = 'read';
-        }
-        else {
-            readStatus = 'unread';
-        }
+        readStatus = checkReadStatus();
 
         //Validates each of the inputs and either throws an error or returns an array of the results
         if (title.value === '') {
@@ -336,7 +362,7 @@ const myLibrary = (() => {
 
     };
 
-    return { addNewBook, deleteBook, updateBook, loadLibrary, viewBook };
+    return { addNewBook, deleteBook, updateBookDOM, loadLibrary, viewBook };
 })();
 
 let overlayOn = false;
@@ -391,6 +417,7 @@ const unreadBookstd = document.querySelector('#unreadBooks');
 const readBookstd = document.querySelector('#readBooks');
 const totalPagestd = document.querySelector('#pagesRead');
 const bookInfo = document.querySelector('.viewBookInfo');
+const buttonHolder = document.querySelector('.buttonHolder');
 
 window.onload = function () {
     myLibrary.loadLibrary();
@@ -475,11 +502,10 @@ bookWrapper.addEventListener('click', function (e) {
 });
 
 // Updates the book
-const buttonHolder = document.querySelector('.buttonHolder');
 const updateButtons = document.querySelectorAll('.updateButton');
 buttonHolder.addEventListener('click', function(e) {
     if (hasClass(e.target, 'updateButton')) {
         let index = e.target.id;
-        myLibrary.updateBook(index);
+        myLibrary.updateBookDOM(index);
     }
 })
