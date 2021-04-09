@@ -132,24 +132,26 @@ const myLibrary = (() => {
         buttonHolder.innerHTML = '';
 
         //Constant for the book information wrapper
-        const bookInfo = document.querySelector('.viewBookInfo');           //This is where all of the book data will be appended
+                  //This is where all of the book data will be appended
         bookInfo.innerHTML = '';
 
         const titleh2 = document.createElement('h2');
         const authorp = document.createElement('p');
         const pagesp = document.createElement('p');
         const readp = document.createElement('p');
+        readp.classList.add('bookReadStatus');
         const extra = document.createElement('p');
+        extra.classList.add('extraBookInfo');
 
         //To hold and style the title
         const titleWrapper = document.createElement('div');
         titleWrapper.classList.add('titleWrapper');
 
         titleh2.textContent = myLibrary[index].title;
-        authorp.innerHTML = "<strong>Author:</strong>   " + myLibrary[index].author;
-        pagesp.innerHTML = "<strong>Total pages:</strong>   " + myLibrary[index].pages;
-        readp.innerHTML = "<strong>This book is:</strong>   " + myLibrary[index].read;
-        extra.innerHTML = "<strong>Additional Info:</strong>   " + myLibrary[index].addInfo;
+        authorp.innerHTML = "<strong>Author:</strong> " + myLibrary[index].author;
+        pagesp.innerHTML = "<strong>Total pages:</strong> " + myLibrary[index].pages;
+        readp.innerHTML = "<strong>This book is:</strong> " + myLibrary[index].read;
+        extra.innerHTML = "<strong>Additional Info:</strong> " + myLibrary[index].addInfo;
 
         //For the 'edit information' button
         const updateButton = document.createElement('button');
@@ -168,6 +170,51 @@ const myLibrary = (() => {
 
     };
 
+    //Updates the books 'read' status and 'additional information', triggered by the user
+    const updateBook = (index) => {
+        console.log(`Updates book: ${index}`);
+
+        //These remove the 'read status' and the additional information from the DOM
+        const readp = document.querySelector('.bookReadStatus');
+        const extra = document.querySelector('.extraBookInfo');
+        bookInfo.removeChild(readp);
+        bookInfo.removeChild(extra);
+
+        //Containers to hold the nested update information inputs
+        const readDIV = document.createElement('div');
+        readDIV.classList.add('readDIV');
+        const extraDIV = document.createElement('div');
+        extraDIV.classList.add('extraDIV');
+
+        const updateReadLabel = document.createElement('label');
+        updateReadLabel.setAttribute('for', 'updateRead');
+        updateReadLabel.innerHTML = "<strong>Has this book been read?</strong> ";
+        const updateRead = document.createElement('input');
+        updateRead.setAttribute('id', 'updateRead');
+        updateRead.setAttribute('type', 'checkbox');
+
+        const updateAdditionalInfoLabel = document.createElement('label');
+        const updateAdditionalInfo = document.createElement('textarea');
+
+        updateAdditionalInfo.value = extra.textContent;
+        updateAdditionalInfoLabel.innerHTML = "<strong>Update the below Additional Information:</strong> ";
+
+        readDIV.appendChild(updateReadLabel);
+        readDIV.appendChild(updateRead);
+        extraDIV.appendChild(updateAdditionalInfoLabel);
+        extraDIV.appendChild(updateAdditionalInfo);
+        bookInfo.appendChild(readDIV);
+        bookInfo.appendChild(extraDIV);
+
+        // if (myLibrary[index].read === 'read') {
+        //     myLibrary[index].read = 'unread';
+        // }
+        // else {
+        //     myLibrary[index].read = 'read';
+        // }
+        // saveLibrary();
+        // displayLibrary();
+    };
 
     //Displays the data on the table
     const displayData = () => {
@@ -189,17 +236,6 @@ const myLibrary = (() => {
         displayLibrary();
     };
 
-    //Updates the books 'read' status, triggered by the user
-    const updateBook = (index) => {
-        if (myLibrary[index].read === 'read') {
-            myLibrary[index].read = 'unread';
-        }
-        else {
-            myLibrary[index].read = 'read';
-        }
-        saveLibrary();
-        displayLibrary();
-    };
 
     //private method to save myLibrary
     const saveLibrary = () => {
@@ -354,7 +390,7 @@ const totalBookstd = document.querySelector('#totalBooks');
 const unreadBookstd = document.querySelector('#unreadBooks');
 const readBookstd = document.querySelector('#readBooks');
 const totalPagestd = document.querySelector('#pagesRead');
-
+const bookInfo = document.querySelector('.viewBookInfo');
 
 window.onload = function () {
     myLibrary.loadLibrary();
@@ -438,11 +474,12 @@ bookWrapper.addEventListener('click', function (e) {
     }
 });
 
-// Redacted due to decision to create a book overlay
-// const updateButtons = document.querySelectorAll('.updateButton');
-// bookWrapper.addEventListener('click', function(e) {
-//     if (hasClass(e.target, 'updateButton')) {
-//         let index = e.target.id;
-//         myLibrary.updateBook(index);
-//     }
-// })
+// Updates the book
+const buttonHolder = document.querySelector('.buttonHolder');
+const updateButtons = document.querySelectorAll('.updateButton');
+buttonHolder.addEventListener('click', function(e) {
+    if (hasClass(e.target, 'updateButton')) {
+        let index = e.target.id;
+        myLibrary.updateBook(index);
+    }
+})

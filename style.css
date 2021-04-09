@@ -167,9 +167,15 @@ textarea {
     flex-direction: column;
 }
 
-.viewBookInfo h2, p{
+.viewBookInfo h2, p, input, label{
     padding: 18px;
     line-height: 1.5em;
+}
+
+.viewBookInfo textarea{
+    width: 80%;
+    margin: auto;
+    height: 100px;
 }
 
 .viewBookInfo h2{
@@ -208,6 +214,7 @@ textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-left: solid rgba(175, 193, 213, 0.4);
 }
 
 .data h2{
