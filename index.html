@@ -34,18 +34,18 @@
                     <div id="readcheckbox">
                         <label for="readInput">Read: </label><input id="readInput" type="checkbox">
                     </div><br>
-                    <button type="submit" id="submitBook">Add Book</button>
+                    <button type="submit" id="submitBook" class="bookButton">Add Book</button>
                 </form>
             </div>
 
             <div class="bookOverlayWrapper">
                 <button id="closeEditOverlay">X</button>
-                <h2>BOOK TITLE</h2>
-                <p>Author</p>
-                <p>Number of pages</p>
-                <p>This book is: </p>
-                <p>Additional Information: </p>
-                <button id="edit">Edit Information</button>
+                <div class="viewBookInfo">
+
+                </div>
+                <div class="buttonHolder">
+
+                </div>
             </div>
         </div>
 
@@ -74,7 +74,7 @@
                     <td id="pagesRead"></td>
                 </tr>
             </table>
-            <button id="newBookButton">Add New Book</button>
+            <button class="newBookButton bookButton">Add New Book</button>
         </div>
     </div>
 

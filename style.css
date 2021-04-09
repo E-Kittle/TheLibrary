@@ -10,8 +10,8 @@
 body{
     /* background-color: #2f5d62; */
     font-size: 16px;
-
-
+    
+    
     background-color: #161925;
     color: #AFC1D5;
 }
@@ -27,20 +27,20 @@ h1{
     font-size: 60px;
 }
 
-/* For the view book overlay */
-/* .viewBookOverlay{
-    position: fixed;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.9);
-} */
+.bookButton {
+    color: white;
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 20px;
+    margin-top: 100px;
+    background-color: rgba(175, 193, 213, 0.2);
+    border-color: #CBF7ED;
+}
+
+.bookButton:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
 
 /* For form overlay - Adds a new book */
 .overlay{
@@ -86,14 +86,11 @@ form{
 
 #submitBook{
     width: 150px;
-    height: 40px;
     background-color: rgba(175, 193, 213, 0.2);
     align-self: center;
-    color: white;
-    font-size: 20px;
-    border-color: #CBF7ED;
-    border-radius: 5px;
+    margin-top: 0;
 }
+
 
 #closeOverlay{
     background: none;
@@ -118,7 +115,7 @@ form{
 }
 
 textarea {
-    max-width: 400px;
+    max-width: 100%;
 }
 
 /* Error handling for the form */
@@ -146,6 +143,8 @@ textarea {
     border-bottom: solid rgba(175, 193, 213, 0.4);
     border-style: solid;
     height: 80vh;
+    justify-content: space-between;
+    overflow: auto;
 }
 
 #closeEditOverlay{
@@ -162,6 +161,38 @@ textarea {
     color: white;
 }
 
+.viewBookInfo{
+    flex-grow: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+.viewBookInfo h2, p{
+    padding: 18px;
+    line-height: 1.5em;
+}
+
+.viewBookInfo h2{
+    font-size: 30px;
+    text-align: center;
+    border-bottom: solid rgba(175, 193, 213, 0.4);
+    width: 80%;
+    align-self: center;
+}
+
+.viewBookInfo strong{
+    /* color: #CBF7ED; */
+    font-weight: bolder;
+    text-decoration: underline;
+    font-size: 20px;
+}
+
+.buttonHolder{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
 /* Wrapper for the library contents */
 .wrapper{
     display: grid;
@@ -171,19 +202,6 @@ textarea {
 
 /* Styling for the data */
 
-#newBookButton {
-    color: white;
-    border-radius: 8px;
-    padding: 20px;
-    font-size: 20px;
-    margin-top: 100px;
-    background-color: rgba(175, 193, 213, 0.2);
-    border-color: #CBF7ED;
-}
-
-#newBookButton:hover{
-    background-color: rgba(0, 0, 0, 0.4);
-}
 
 .data{
     height: 80vh;
@@ -239,8 +257,7 @@ td{
 
 .titleWrapper{
     width: 80%;
-    align-self: center;
-    
+    align-self: center;    
 }
 
 .book h3{
@@ -260,6 +277,7 @@ td{
     background-color: rgba(175, 193, 213, 0.2);
     border-color: #CBF7ED;
     border-style: none;
+    border-radius: 5px; 
 }
 
 .book button:hover{
@@ -286,7 +304,7 @@ td{
     font-size: 15px;
     width: 60%;
     align-self: flex-end; 
-    justify-self: flex-end; 
+    justify-self: flex-end;
 }
 
 .extraWrapper{
