@@ -27,8 +27,8 @@ h1{
     font-size: 60px;
 }
 
-/* For form overlay - Adds a new book */
-.overlay{
+/* For the view book overlay */
+/* .viewBookOverlay{
     position: fixed;
     display: none;
     justify-content: center;
@@ -39,7 +39,22 @@ h1{
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.9);
+} */
+
+/* For form overlay - Adds a new book */
+.overlay{
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    background-color: rgba(0,0,0,0.9);
 }
 
 span #formatter{
@@ -47,12 +62,14 @@ span #formatter{
 }
 
 #formHolder{   
+    display: none;
     background-color: rgba(22, 25, 37, 1.0);
     border-radius: 8px;
     width: 300px;
     margin-top: 80px;
-    display: flex;
     flex-direction: column;
+    border-bottom: solid rgba(175, 193, 213, 0.4);
+    border-style: solid;
 }
 
 #formHolder h2{
@@ -66,8 +83,6 @@ form{
     display: flex;
     flex-direction: column;
 }
-
-
 
 #submitBook{
     width: 150px;
@@ -112,7 +127,17 @@ form{
     text-align: center;
 }
 
-
+/* For the 'see additional information or update' overlay */
+.bookOverlayWrapper{
+    display: none;
+    background-color: rgba(22, 25, 37, 1.0);
+    border-radius: 8px;
+    width: 300px;
+    margin-top: 80px;
+    flex-direction: column;
+    border-bottom: solid rgba(175, 193, 213, 0.4);
+    border-style: solid;
+}
 
 /* Wrapper for the library contents */
 .wrapper{
@@ -124,7 +149,6 @@ form{
 /* Styling for the data */
 
 #newBookButton {
-    /* border-style: none; */
     color: white;
     border-radius: 8px;
     padding: 20px;
@@ -139,11 +163,9 @@ form{
 }
 
 .data{
-    /* background-color: #17253B; */
     height: 80vh;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
 }
 
@@ -171,8 +193,8 @@ td{
 .bookWrapper{
     width: 90%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 350px);
-    grid-template-rows: repeat(auto-fill, 400px);
+    grid-template-columns: repeat(auto-fill, 300px);
+    grid-template-rows: repeat(auto-fill, 350px);
     grid-gap: 50px;
     justify-self: center;
     justify-content: center;
@@ -187,28 +209,26 @@ td{
     border-color: #CBF7ED;
     display: flex;
     flex-direction: column;
-    /* height: 100%; */
-    /* align-items: baseline; */
-    /* justify-items: baseline; */
-    /* position: relative; */
-    overflow: auto;
-    /* flex-basis: 100%; */
-    height: 400px;
+    height: 350px;
+    width: 300px;
     justify-content: space-between;
 }
 
-.book h3{
-    font-size: 30px;
+.titleWrapper{
     width: 80%;
     align-self: center;
+    
+}
+
+.book h3{
+    height: 60px;
+    font-size: 20px;
     border-bottom: solid rgba(175, 193, 213, 0.4);
-    /* border-bottom: solid rgba(17, 105, 86, 0.5); */
     text-align: center;
-    /* height: 25%; */
 }
 
 .book p{
-    font-size: 20px;
+    font-size: 16px;
     padding: 10px;
 }
 
@@ -229,16 +249,28 @@ td{
     align-self: flex-end;
 }
 
-.book .updateButton{
+/* This has been removed temporarily, maybe add it back in the overlay */
+/* .book .updateButton{
     padding: 10px;
-    /* margin-top: 40px; */
     font-size: 15px;
     width: 60%;
-    /* position: absolute;
-    bottom: 0;
-    right: 0; */
     align-self: flex-end; 
     justify-self: flex-end;
+} */
+
+.book .infoButton{
+    padding: 10px;
+    font-size: 15px;
+    width: 60%;
+    align-self: flex-end; 
+    justify-self: flex-end; 
+}
+
+.extraWrapper{
+    overflow: auto;
+    height: 50px;
+    /* border-color: red;
+    border-style: solid; */
 }
 
 

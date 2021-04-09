@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
-    <link rel="stylesheet" href="style.css"></rel>
+    <link rel="stylesheet" href="style.css">
+    </rel>
 </head>
+
 <body>
 
-    
-    
+
+
     <div class="header">
         <h1>The Library</h1>
     </div>
@@ -20,19 +23,28 @@
             <div id="formHolder">
                 <button id="closeOverlay">X</button>
                 <h2>Add a New Book</h2>
-            <form>
-                <!-- Removed the required for ease of adding new books - Add again in a bit -->
-                <label for="titleInput">Title: </label><input id="titleInput" type="text">
-                <span class='spanError' id='titleError'></span>
-                <label for="authorInput">Author: </label><input id="authorInput" type="text" >
-                <span class='spanError' id='authorError'></span>
-                <label for="pagesInput">Total Pages: </label><input id="pagesInput" type="number">
-                <span class='spanError' id='pagesError'></span>
-                <div id="readcheckbox">
-                <label for="readInput">Read: </label><input id="readInput" type="checkbox">
-                </div><br>
-                <button type="submit" id="submitBook">Add Book</button>
-            </form>
+                <form>
+                    <label for="titleInput">Title: </label><input id="titleInput" type="text">
+                    <span class='spanError' id='titleError'></span>
+                    <label for="authorInput">Author: </label><input id="authorInput" type="text">
+                    <span class='spanError' id='authorError'></span>
+                    <label for="pagesInput">Total Pages: </label><input id="pagesInput" type="number">
+                    <span class='spanError' id='pagesError'></span>
+                    <div id="readcheckbox">
+                        <label for="readInput">Read: </label><input id="readInput" type="checkbox">
+                    </div><br>
+                    <button type="submit" id="submitBook">Add Book</button>
+                </form>
+            </div>
+
+            <div class="bookOverlayWrapper">
+                <button id="closeEditOverlay">X</button>
+                <h2>BOOK TITLE</h2>
+                <p>Author</p>
+                <p>Number of pages</p>
+                <p>This book is: </p>
+                <p>Additional Information: </p>
+                <button id="edit">Edit Information</button>
             </div>
         </div>
 
@@ -69,6 +81,7 @@
 
 
 
-<script src="source.js"></script>
+    <script src="source.js"></script>
 </body>
+
 </html>
