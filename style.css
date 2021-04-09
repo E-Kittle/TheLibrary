@@ -65,7 +65,7 @@ span #formatter{
     display: none;
     background-color: rgba(22, 25, 37, 1.0);
     border-radius: 8px;
-    width: 300px;
+    width: 25vw;
     margin-top: 80px;
     flex-direction: column;
     border-bottom: solid rgba(175, 193, 213, 0.4);
@@ -113,6 +113,14 @@ form{
     margin: 30px 0;
 }
 
+#additionalInfoInput{
+    height: 100px;
+}
+
+textarea {
+    max-width: 400px;
+}
+
 /* Error handling for the form */
 .error{
     border-color: crimson;
@@ -132,11 +140,26 @@ form{
     display: none;
     background-color: rgba(22, 25, 37, 1.0);
     border-radius: 8px;
-    width: 300px;
+    width: 40vw;
     margin-top: 80px;
     flex-direction: column;
     border-bottom: solid rgba(175, 193, 213, 0.4);
     border-style: solid;
+    height: 80vh;
+}
+
+#closeEditOverlay{
+    background: none;
+    border: 5;
+    padding: 2px;
+    margin: 5px 5px 0 0;
+    width: 30px;
+    position: relative;
+    align-self: flex-end;
+    border-color: #CBF7ED;
+    border-radius: 5px;
+    background-color: rgba(175, 193, 213, 0.2);
+    color: white;
 }
 
 /* Wrapper for the library contents */

@@ -1,6 +1,6 @@
 //Section for Bookfactory
-const bookFactory = (title, author, pages, read) => {
-    return {title, author, pages, read};
+const bookFactory = (title, author, pages, read, addInfo) => {
+    return {title, author, pages, read, addInfo};
 };
 
 
@@ -19,10 +19,11 @@ const myLibrary = (() => {
         let validated = validateData();
 
         if (validated.length > 0){
-            const newBook = bookFactory(validated[0], validated[1], validated[2], validated[3]);
+            const newBook = bookFactory(validated[0], validated[1], validated[2], validated[3], validated[4]);
             myLibrary.push(newBook);
             clearForm();         
             overlay.off();
+            overlay.addBookOff();
             displayLibrary();
             saveLibrary();
     };
@@ -121,7 +122,10 @@ const myLibrary = (() => {
     };
 
     const viewBook = (index) => {
-
+        console.log(myLibrary[index]);
+        //This receives the index from the pressed button. 
+        //Resets the DOM for the displayed book
+        //Uses the index to set the 
     };
 
 
@@ -181,6 +185,7 @@ const myLibrary = (() => {
         const titleError = document.querySelector('#titleError');
         const authorError = document.querySelector('#authorError');
         const pagesError = document.querySelector('#pagesError');
+        let additionalInfo;
 
         //Checks if the book was read or not
         if (read.checked){
@@ -231,10 +236,17 @@ const myLibrary = (() => {
             pages.classList.remove('error');
             pagesError.textContent = '';
         }
+
+        if (addInfo.value === ''){
+            additionalInfo = 'No additional Info';
+        }
+        else{
+            additionalInfo = addInfo.value;
+        }
         
 
         //If everything above checked out, then return the validated data
-            return [title.value, author.value, pages.value, readStatus];
+            return [title.value, author.value, pages.value, readStatus, additionalInfo];
           
     };
 
@@ -244,44 +256,12 @@ const myLibrary = (() => {
         author.value = '';
         pages.value = '';
         read.checked = false;
+        addInfo.value = '';
+        
     };
     
-    return {addNewBook, deleteBook, updateBook, loadLibrary};
+    return {addNewBook, deleteBook, updateBook, loadLibrary, viewBook};
 })();
-
-
-
-//Section for query selectors
-const submitBookButton = document.querySelector('#submitBook');
-const bookWrapper = document.querySelector('.bookWrapper');
-const title = document.querySelector('#titleInput');
-const author = document.querySelector('#authorInput');
-const pages = document.querySelector('#pagesInput');
-const read = document.querySelector('#readInput');
-const titleError = document.querySelector('#titleError');
-const totalBookstd = document.querySelector('#totalBooks');
-const unreadBookstd = document.querySelector('#unreadBooks');
-const readBookstd = document.querySelector('#readBooks');
-const totalPagestd = document.querySelector('#pagesRead');
-
-
-window.onload = function() {
-   myLibrary.loadLibrary(); 
-};
-
-
-
-//Event handler to add a new book to the library
-submitBookButton.addEventListener('click', function(e) {
-    e.preventDefault();
-    myLibrary.addNewBook();
-});
-
-
-
-
-
-// For the Overlay
 
 let overlayOn = false;
 
@@ -320,6 +300,41 @@ const overlay = (() => {
     return {on, off, addBookOn, addBookOff, editBookOn, editBookOff};
 })();
 
+
+//Section for query selectors
+const submitBookButton = document.querySelector('#submitBook');
+const bookWrapper = document.querySelector('.bookWrapper');
+const title = document.querySelector('#titleInput');
+const author = document.querySelector('#authorInput');
+const pages = document.querySelector('#pagesInput');
+const read = document.querySelector('#readInput');
+const addInfo = document.querySelector('#additionalInfoInput');
+const titleError = document.querySelector('#titleError');
+const totalBookstd = document.querySelector('#totalBooks');
+const unreadBookstd = document.querySelector('#unreadBooks');
+const readBookstd = document.querySelector('#readBooks');
+const totalPagestd = document.querySelector('#pagesRead');
+
+
+window.onload = function() {
+   myLibrary.loadLibrary(); 
+};
+
+
+
+//Event handler to add a new book to the library
+submitBookButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    myLibrary.addNewBook();
+});
+
+
+
+
+
+// For the Overlay
+
+
 // Query selector to turn the overlay on
 const overlayButton = document.querySelector('#newBookButton');
 overlayButton.addEventListener('click', () => {
@@ -353,6 +368,7 @@ bookWrapper.addEventListener('click', function(e) {
         if (!overlayOn){
             overlay.on();
             overlay.editBookOn();
+            myLibrary.viewBook(index);
         }
     }
 });
