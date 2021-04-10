@@ -1,6 +1,3 @@
-//Error handling in real time
-
-
 //Section for Bookfactory
 const bookFactory = (title, author, pages, read, addInfo) => {
     return { title, author, pages, read, addInfo };
@@ -494,6 +491,20 @@ const buttonHolder = document.querySelector('.buttonHolder');
 window.onload = function () {
     myLibrary.loadLibrary();
 };
+
+
+//Event listeners to validate form data in real time
+title.addEventListener('focusout', () => {
+    validate.validateTitle(true);
+});
+
+author.addEventListener('focusout', () =>{
+    validate.validateAuthor();
+});
+
+pages.addEventListener('focusout', () => {
+    validate.validatePages();
+});
 
 
 

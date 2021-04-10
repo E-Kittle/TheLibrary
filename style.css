@@ -65,6 +65,7 @@ h1{
     flex-direction: column;
     border-bottom: solid rgba(175, 193, 213, 0.4);
     border-style: solid;
+    overflow: auto;
 }
 
 #formHolder h2{
