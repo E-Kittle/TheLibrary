@@ -76,21 +76,11 @@ const myLibrary = (() => {
             delButton.setAttribute('id', index);
             delButton.textContent = 'X';
 
-            // const updateButton = document.createElement('button');
-            // updateButton.classList.add('updateButton');
-            // updateButton.setAttribute('id', index);
-            // updateButton.textContent = 'Update read status';
-
-
             //Creates the additional information button
             const additionalInfoButton = document.createElement('button');
             additionalInfoButton.classList.add('infoButton');
             additionalInfoButton.textContent = 'See Additional Information or Update';
             additionalInfoButton.setAttribute('id', index);
-
-            index++;
-
-
 
             //Append the new fields
             newBook.appendChild(delButton);
@@ -99,13 +89,9 @@ const myLibrary = (() => {
             newBook.appendChild(authorp);
             newBook.appendChild(pagesp);
             newBook.appendChild(readp);
-            // extraWrapper.appendChild(extra);
-            // newBook.appendChild(extraWrapper);                                         //Extra content
-            // newBook.appendChild(updateButton);
             newBook.appendChild(additionalInfoButton);
             bookWrapper.appendChild(newBook);
-
-
+            
             //Calculates the running totals for the data
             totalBooks++;
             totalPages += Number(obj.pages);
@@ -115,25 +101,23 @@ const myLibrary = (() => {
             else {
                 unreadBooks++;
             }
+
+            //Updates index for the next iteration
+            index++;
         });
 
         //displays the data to the page
         displayData();
     };
 
+    //This is triggered by the 'see additional information' button. It creates an overlay that views the additional information of the book
     const viewBook = (index) => {
-        console.log(myLibrary[index]);
-        //This receives the index from the pressed button. 
-        //Resets the DOM for the displayed book
-        //Uses the index to set the 
 
-        //Constant for the container
+        //Clears the button holder and bookInfo overlay (in case there's any data remaining from the last view)
         buttonHolder.innerHTML = '';
-
-        //Constant for the book information wrapper
-                  //This is where all of the book data will be appended
         bookInfo.innerHTML = '';
 
+        //Creates the new holders for 
         const titleh2 = document.createElement('h2');
         const authorp = document.createElement('p');
         const pagesp = document.createElement('p');
@@ -146,6 +130,7 @@ const myLibrary = (() => {
         const titleWrapper = document.createElement('div');
         titleWrapper.classList.add('titleWrapper');
 
+        //Updates the data for the specific book
         titleh2.textContent = myLibrary[index].title;
         authorp.innerHTML = "<strong>Author:</strong> " + myLibrary[index].author;
         pagesp.innerHTML = "<strong>Total pages:</strong> " + myLibrary[index].pages;
@@ -158,8 +143,7 @@ const myLibrary = (() => {
         updateButton.setAttribute('id', index);
         updateButton.textContent = 'Update Information';
 
-        // bookInfo.appendChild(titleWrapper);
-        // titleWrapper.appendChild(titleh2);
+        //Appends the new DOM to the overlay
         bookInfo.appendChild(titleh2);
         bookInfo.appendChild(authorp);
         bookInfo.appendChild(pagesp);
@@ -169,9 +153,8 @@ const myLibrary = (() => {
 
     };
 
-    //Updates the books 'read' status and 'additional information', triggered by the user
+    //Displays the form for the updating of the books 'read' status and 'additional information', triggered by the user
     const updateBookDOM = (index) => {
-        console.log(`Updates book: ${index}`);
 
         //These remove the 'read status' and the additional information from the DOM
         const readp = document.querySelector('.bookReadStatus');
@@ -185,6 +168,7 @@ const myLibrary = (() => {
         const extraDIV = document.createElement('div');
         extraDIV.classList.add('extraDIV');
 
+        //New form items 
         const updateReadLabel = document.createElement('label');
         updateReadLabel.setAttribute('for', 'updateRead');
         updateReadLabel.innerHTML = "<strong>Has this book been read?</strong> ";
@@ -198,6 +182,7 @@ const myLibrary = (() => {
         updateAdditionalInfo.value = extra.textContent.replace('Additional Information: ', '');
         updateAdditionalInfoLabel.innerHTML = "<strong>Update the below Additional Information:</strong> ";
 
+        //Appends the new form items and their labels to the DOM overlay
         readDIV.appendChild(updateReadLabel);
         readDIV.appendChild(updateRead);
         extraDIV.appendChild(updateAdditionalInfoLabel);
@@ -214,28 +199,21 @@ const myLibrary = (() => {
         saveButton.setAttribute('id', index);
         saveButton.textContent = 'Save Information';
         buttonHolder.appendChild(saveButton);
-
-        //All of this updates the DOM for the updateBook
-        //Now I need to create another method that is triggered by the 'save information' button. 
-        //When that button is pressed, it grabs the information from the form, updates the book object, 
-        //updates the DOM (returning it to the viewBook page) and saves the book
-
-
-
-
-
-        // if (myLibrary[index].read === 'read') {
-        //     myLibrary[index].read = 'unread';
-        // }
-        // else {
-        //     myLibrary[index].read = 'read';
-        // }
-        // saveLibrary();
-        // displayLibrary();
     };
-
+    
+    //This is triggered by the 'save information' button. After the user has updated their information, this method will update
+    //the book object and save the data to the array
     const updateBook = (index) => {
-
+        
+                // if (myLibrary[index].read === 'read') {
+                //     myLibrary[index].read = 'unread';
+                // }
+                // else {
+                //     myLibrary[index].read = 'read';
+                // }
+                // saveLibrary();
+                // displayLibrary();
+        
     }
 
     //Displays the data on the table
@@ -246,14 +224,18 @@ const myLibrary = (() => {
         readBookstd.textContent = readBooks;
     }
 
-    //Deletes a book from the myLibrary array
+    //Deletes a book from the myLibrary array, triggered by the [x] on each book object
     const deleteBook = (index) => {
+        console.log('before splice');
+        console.table(myLibrary);
         if (index === '0') {
             myLibrary.shift();
         }
         else {
-            myLibrary.splice(index, (index));
+            myLibrary.splice(index, 1);
         }
+        console.log('after splice');
+        console.table(myLibrary);
         saveLibrary();
         displayLibrary();
     };
@@ -277,6 +259,49 @@ const myLibrary = (() => {
         displayLibrary();
     };
 
+    
+
+//Private method to validate the data from the form
+const validateData = () => {    
+
+    //Validates each of the inputs and either throws an error or returns an array of the results
+    let arr = [validate.validateTitle(), validate.validateAuthor(), validate.validatePages(), validate.checkReadStatus(), validate.addInfo()];
+    console.log[arr];
+
+    arr.forEach(item => {
+        if (item === null){
+            arr = [];
+        }
+    });
+
+    return arr;
+    
+};
+
+
+//Private method to clear the form fields
+const clearForm = () => {
+    title.value = '';
+    author.value = '';
+    pages.value = '';
+    read.checked = false;
+    addInfo.value = '';
+    
+};
+
+return { addNewBook, deleteBook, updateBookDOM, loadLibrary, viewBook };
+})();
+
+
+const validate = (() => {
+    
+    //Spans to display the error messages
+    const titleError = document.querySelector('#titleError');
+    const authorError = document.querySelector('#authorError');
+    const pagesError = document.querySelector('#pagesError');
+        
+    
+    //Checks if the book was read
     const checkReadStatus = () => {
         if (read.checked) {
             return 'read';
@@ -284,86 +309,85 @@ const myLibrary = (() => {
         else {
             return 'unread';
         }
-
-    }
-    //Private method to validate the data from the form
-    const validateData = () => {
-        let readStatus;
-        const titleError = document.querySelector('#titleError');
-        const authorError = document.querySelector('#authorError');
-        const pagesError = document.querySelector('#pagesError');
-        let additionalInfo;
-
-        //Checks if the book was read or not
-        readStatus = checkReadStatus();
-
-        //Validates each of the inputs and either throws an error or returns an array of the results
+    };
+    
+    //Validates the title
+    const validateTitle = () => {
         if (title.value === '') {
             title.classList.add('error');
             titleError.textContent = 'Please enter a title';
-            return [];
+            return null;
+        }
+        else if (title.value.length >= 50) {
+            title.classList.add('error');
+            titleError.textContent = 'Title must be less than 50 characters';
+            return null;
         }
         else {
             title.classList.remove('error');
             titleError.textContent = '';
+            return title.value;
         }
-
-
+    }
+    
+    //validates the author
+    const validateAuthor = () => {
         if (author.value === '') {
             author.classList.add('error');
             authorError.textContent = 'Please enter an author';
-            return [];
+            return null;
+        }
+        else if (author.value.length >= 50) {
+            author.classList.add('error');
+            authorError.textContent = 'Author must be less than 50 characters';
+            return null;
         }
         else {
             author.classList.remove('error');
             authorError.textContent = '';
-        }
-
+            return author.value;
+        };
+    }
+    
+    //validate the number of pages
+    const validatePages = () => {
         if (pages.value === '') {
             pages.classList.add('error');
             pagesError.textContent = 'Please enter the number of pages';
-            return [];
+            return null;
         }
         else if (pages.value === '0') {
             pages.classList.add('error');
             pagesError.textContent = 'Number of pages cannot be 0';
-            return [];
+            return null;
         }
         else if (pages.value >= 1000000) {
             pages.classList.add('error');
             pagesError.textContent = 'Is your book really that long?';
-            return [];
+            return null;
         }
         else {
             pages.classList.remove('error');
             pagesError.textContent = '';
+            return pages.value;
         }
-
+    }
+        
+    //Checks if additional info contains any data
+    const addInfo = () => {
         if (addInfo.value === '') {
-            additionalInfo = 'No additional Info';
+            return 'No additional Info';
         }
         else {
-            additionalInfo = addInfo.value;
+            return addInfo.value;
         }
-
-
-        //If everything above checked out, then return the validated data
-        return [title.value, author.value, pages.value, readStatus, additionalInfo];
-
-    };
-
-    //Private method to clear the form fields
-    const clearForm = () => {
-        title.value = '';
-        author.value = '';
-        pages.value = '';
-        read.checked = false;
-        addInfo.value = '';
-
-    };
-
-    return { addNewBook, deleteBook, updateBookDOM, loadLibrary, viewBook };
+    }
+        
+    return {checkReadStatus, validateAuthor, validateTitle, validatePages, addInfo}; 
 })();
+
+
+
 
 let overlayOn = false;
 

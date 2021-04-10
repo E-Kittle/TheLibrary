@@ -24,11 +24,11 @@
                 <button id="closeOverlay">X</button>
                 <h2>Add a New Book</h2>
                 <form>
-                    <label for="titleInput">Title: </label><input id="titleInput" type="text">
+                    <label for="titleInput">Title: </label><input id="titleInput" type="text" maxlength="51" required>
                     <span class='spanError' id='titleError'></span>
-                    <label for="authorInput">Author: </label><input id="authorInput" type="text">
+                    <label for="authorInput">Author: </label><input id="authorInput" type="text" maxlength="51" required>
                     <span class='spanError' id='authorError'></span>
-                    <label for="pagesInput">Total Pages: </label><input id="pagesInput" type="number">
+                    <label for="pagesInput">Total Pages: </label><input id="pagesInput" type="number" required>
                     <span class='spanError' id='pagesError'></span>
                     <label for='additionalInfoInput'>Additional Information:</label><textarea id="additionalInfoInput"> </textarea>
                     <div id="readcheckbox">
