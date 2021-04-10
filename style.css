@@ -61,7 +61,7 @@ h1{
     display: none;
     background-color: rgba(22, 25, 37, 1.0);
     border-radius: 8px;
-    width: 25vw;
+    width: 400px;
     flex-direction: column;
     border-bottom: solid rgba(175, 193, 213, 0.4);
     border-style: solid;
@@ -132,7 +132,8 @@ textarea {
     display: none;
     background-color: rgba(22, 25, 37, 1.0);
     border-radius: 8px;
-    width: 35vw;
+    max-width: 550px;
+    min-width: 300px;
     flex-direction: column;
     border-bottom: solid rgba(175, 193, 213, 0.4);
     border-style: solid;
@@ -333,4 +334,89 @@ td{
     .data{
         order: 1
     }
+} */
+
+@media (max-width: 950px){
+    /* At this point, move the data table above the grid so the books can sit side by side */
+    /* Do I need to restructure my grid? I want to set them in the top row */
+    /* Everything's in .wrapper */
+    .wrapper{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 3fr;
+        grid-template-areas: 
+                    "header"
+                    "data"
+                    "books"
+        ;
+        height: 60vh;
+    }
+
+    /* Holds the data */
+    .data{
+        grid-area: data;
+        height: 175px;
+        flex-direction: row;
+        width: 600px;
+        border: none;
+        justify-content: space-between;
+        margin: auto;
+        align-items: center;
+    }
+
+    .newBookButton {
+        margin: 0;
+    }
+
+
+    /* Holds 'The Library' title */
+    .header{
+        grid-area: header;
+    }
+
+    /* Holds the individual books */
+    .bookWrapper{
+        grid-area:books;
+    }
+}
+
+@media (max-width: 750px){
+    .data{
+        flex-direction: column;
+        height: 350px;
+        justify-content: flex-start;
+        width: 100%;
+    }
+}
+
+/* .wrapper{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    margin-top: 30px;
+} */
+
+/* .data{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-left: solid rgba(175, 193, 213, 0.4);
+}
+
+.data h2{
+    padding: 20px 0 20px 0;
+    font-size: 30px;
+}
+
+table{
+    text-align: left;
+    width: 200px;
+    font-size: 20px;
+}
+
+tr{
+    height: 40px;
+}
+
+td{
+    padding-left: 20px;
 } */

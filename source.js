@@ -1,5 +1,4 @@
 //Error handling in real time
-//responsiveness
 
 
 //Section for Bookfactory
