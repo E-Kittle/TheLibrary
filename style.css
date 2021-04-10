@@ -17,9 +17,9 @@ body{
 }
 
 .header{
-    border-bottom-style: solid;
-    border-bottom-color: #CBF7ED;
+    border-bottom:solid rgba(175, 193, 213, 0.4);
     padding: 40px 0 5px 0;
+    
 }
 
 h1{
