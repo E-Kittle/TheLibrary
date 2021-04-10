@@ -8,16 +8,15 @@
 }
 
 body{
-    /* background-color: #2f5d62; */
     font-size: 16px;
     background-color: #161925;
     color: #AFC1D5;
 }
 
+/* Styling for the title 'The Library' */
 .header{
     border-bottom:solid rgba(175, 193, 213, 0.4);
     padding: 40px 0 5px 0;
-    
 }
 
 h1{
@@ -25,6 +24,7 @@ h1{
     font-size: 60px;
 }
 
+/* Generic styling for buttons associated with adding a new book or looking at a book in depth */
 .bookButton {
     color: white;
     border-radius: 8px;
@@ -36,6 +36,23 @@ h1{
 
 .bookButton:hover{
     background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+
+/* Generic styling for an [X] button */
+.closeButton{
+    background: none;
+    border: 5;
+    padding: 2px;
+    margin: 5px 5px 0 0;
+    width: 30px;
+    position: relative;
+    align-self: flex-end;
+    border-color: #CBF7ED;
+    border-radius: 5px;
+    background-color: rgba(175, 193, 213, 0.2);
+    color: white;
 }
 
 
@@ -54,9 +71,7 @@ h1{
     background-color: rgba(0,0,0,0.9);
 }
 
-.newBookButton {
-    margin-top: 100px;
-}
+/* For the 'new book' secific overlay */
 #formHolder{   
     display: none;
     background-color: rgba(22, 25, 37, 1.0);
@@ -65,9 +80,11 @@ h1{
     flex-direction: column;
     border-bottom: solid rgba(175, 193, 213, 0.4);
     border-style: solid;
-    overflow: auto;
+    max-height: 100%;
+    overflow-y: auto;
 }
 
+/* For the header in the 'new book' specific overlay */
 #formHolder h2{
     text-align: center;
     padding-bottom: 30px;
@@ -78,28 +95,6 @@ form{
     padding: 0 30px 10px 30px;
     display: flex;
     flex-direction: column;
-}
-
-#submitBook{
-    width: 150px;
-    background-color: rgba(175, 193, 213, 0.2);
-    align-self: center;
-    margin-top: 0;
-}
-
-
-#closeOverlay{
-    background: none;
-    border: 5;
-    padding: 2px;
-    margin: 5px 5px 0 0;
-    width: 30px;
-    position: relative;
-    align-self: flex-end;
-    border-color: #CBF7ED;
-    border-radius: 5px;
-    background-color: rgba(175, 193, 213, 0.2);
-    color: white;
 }
 
 #readInput {
@@ -113,6 +108,15 @@ form{
 textarea {
     max-width: 100%;
 }
+
+/* Styling for buttons on the 'new book' form overlay */
+#submitBook{
+    width: 150px;
+    background-color: rgba(175, 193, 213, 0.2);
+    align-self: center;
+    margin-top: 0;
+}
+
 
 /* Error handling for the form */
 .error{
@@ -133,29 +137,18 @@ textarea {
     display: none;
     background-color: rgba(22, 25, 37, 1.0);
     border-radius: 8px;
+    width: 550px;
     max-width: 550px;
     min-width: 300px;
     flex-direction: column;
     border-bottom: solid rgba(175, 193, 213, 0.4);
     border-style: solid;
     height: 75vh;
-    overflow: auto;
+    max-height: 100%;
+    overflow-y: auto;
 }
 
-#closeEditOverlay{
-    background: none;
-    border: 5;
-    padding: 2px;
-    margin: 5px 5px 0 0;
-    width: 30px;
-    position: relative;
-    align-self: flex-end;
-    border-color: #CBF7ED;
-    border-radius: 5px;
-    background-color: rgba(175, 193, 213, 0.2);
-    color: white;
-}
-
+/* Styling for the 'see additional information' overlay */
 .viewBookInfo{
     flex-grow: 3;
     display: flex;
@@ -177,13 +170,6 @@ textarea {
     flex: 1 0;
 }
 
-.viewBookInfo textarea{
-    width: 80%;
-    margin: auto 0;
-    min-height: 150px;
-    max-height: 300px;
-}
-
 .viewBookInfo h2{
     font-size: 30px;
     text-align: center;
@@ -193,7 +179,6 @@ textarea {
 }
 
 .viewBookInfo strong{
-    /* color: #CBF7ED; */
     font-weight: bolder;
     text-decoration: underline;
     font-size: 20px;
@@ -203,7 +188,14 @@ textarea {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    
+}    
+
+/* Styling for the 'update book' overlay */
+.viewBookInfo textarea{
+    width: 80%;
+    margin: auto 0;
+    min-height: 150px;
+    max-height: 300px;
 }
 
 /* Wrapper for the library contents */
@@ -213,9 +205,7 @@ textarea {
     margin-top: 30px;
 }
 
-/* Styling for the data */
-
-
+/* Styling for the data section, header, table and button */
 .data{
     height: 80vh;
     display: flex;
@@ -243,6 +233,9 @@ td{
     padding-left: 20px;
 }
 
+.newBookButton {
+    margin-top: 100px;
+}
 
 /* To hold the books */
 .bookWrapper{
@@ -292,6 +285,8 @@ td{
     border-color: #CBF7ED;
     border-style: none;
     border-radius: 5px; 
+    padding: 10px;
+    font-size: 15px;
 }
 
 .book button:hover{
@@ -299,23 +294,12 @@ td{
 }
 
 .book .delButton{
-    padding: 10px;
     border-style: none;
     align-self: flex-end;
 }
 
-/* This has been removed temporarily, maybe add it back in the overlay */
-/* .book .updateButton{
-    padding: 10px;
-    font-size: 15px;
-    width: 60%;
-    align-self: flex-end; 
-    justify-self: flex-end;
-} */
 
 .book .infoButton{
-    padding: 10px;
-    font-size: 15px;
     width: 60%;
     align-self: flex-end; 
     justify-self: flex-end;
@@ -324,23 +308,10 @@ td{
 .extraWrapper{
     overflow: auto;
     height: 50px;
-    /* border-color: red;
-    border-style: solid; */
 }
 
 
-/* @media (max-width: 1050px){
-    .wrapper is a grid
-    
-    .data{
-        order: 1
-    }
-} */
-
 @media (max-width: 950px){
-    /* At this point, move the data table above the grid so the books can sit side by side */
-    /* Do I need to restructure my grid? I want to set them in the top row */
-    /* Everything's in .wrapper */
     .wrapper{
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr 3fr;
@@ -388,36 +359,3 @@ td{
         width: 100%;
     }
 }
-
-/* .wrapper{
-    display: grid;
-    grid-template-columns: 4fr 1fr;
-    margin-top: 30px;
-} */
-
-/* .data{
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-left: solid rgba(175, 193, 213, 0.4);
-}
-
-.data h2{
-    padding: 20px 0 20px 0;
-    font-size: 30px;
-}
-
-table{
-    text-align: left;
-    width: 200px;
-    font-size: 20px;
-}
-
-tr{
-    height: 40px;
-}
-
-td{
-    padding-left: 20px;
-} */

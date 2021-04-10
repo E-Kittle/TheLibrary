@@ -13,21 +13,27 @@
 <body>
 
 
-
+    <!-- The title -->
     <div class="header">
         <h1>The Library</h1>
     </div>
+
+    <!-- Wrapper for everything below the title -->
     <div class="wrapper">
+
+        <!-- Section for the overlays -->
         <div class="overlay">
+
+            <!-- Overlay container that holds the form for adding a new book -->
             <div id="formHolder">
-                <button id="closeOverlay">X</button>
+                <button id="closeOverlay" class="closeButton">X</button>
                 <h2>Add a New Book</h2>
                 <form>
-                    <label for="titleInput">Title: </label><input id="titleInput" type="text" maxlength="51" required autofocus>
+                    <label for="titleInput">Title: </label><input id="titleInput" type="text" maxlength="51" focus>
                     <span class='spanError' id='titleError'></span>
-                    <label for="authorInput">Author: </label><input id="authorInput" type="text" maxlength="51" required>
+                    <label for="authorInput">Author: </label><input id="authorInput" type="text" maxlength="51">
                     <span class='spanError' id='authorError'></span>
-                    <label for="pagesInput">Total Pages: </label><input id="pagesInput" type="number" required>
+                    <label for="pagesInput">Total Pages: </label><input id="pagesInput" type="number">
                     <span class='spanError' id='pagesError'></span>
                     <label for='additionalInfoInput'>Additional Information:</label><textarea id="additionalInfoInput"> </textarea>
                     <div id="readcheckbox">
@@ -37,8 +43,9 @@
                 </form>
             </div>
 
+            <!-- Overlay container that holds the book details -->
             <div class="bookOverlayWrapper">
-                <button id="closeEditOverlay">X</button>
+                <button id="closeEditOverlay" class="closeButton">X</button>
                 <div class="viewBookInfo">
 
                 </div>
@@ -53,6 +60,7 @@
 
         </div>
 
+        <!-- Section to display the book data -->
         <div class="data">
             <h2>Data:</h2>
             <table>

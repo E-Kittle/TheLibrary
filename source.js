@@ -1,4 +1,4 @@
-//Section for Bookfactory
+//Section for Bookfactory - Used to create each book object that will  be added to the library. 
 const bookFactory = (title, author, pages, read, addInfo) => {
     return { title, author, pages, read, addInfo };
 };
@@ -7,6 +7,9 @@ const bookFactory = (title, author, pages, read, addInfo) => {
 
 //Section for methods to update/load the library
 const myLibrary = (() => {
+
+    //The array holds all of the book objects to be stored in the library
+    //The other values hold running totals for the data table
     const myLibrary = [];
     let totalBooks = 0;
     let totalPages = 0;
@@ -15,6 +18,7 @@ const myLibrary = (() => {
 
     //Grabs data from the form to create a new book
     const addNewBook = () => {
+
         //Grab the data from the form - returns an empty array if validation fails
         let validated = validateData();
 
@@ -31,8 +35,6 @@ const myLibrary = (() => {
 
     //Private method which loops through the myLibrary array to add books to the DOM
     const displayLibrary = () => {
-        // loadLibrary();          //Loads the library from the local save. This is really only important for a returning user. Need to set myLibrary = loadLibrary()
-
         //Resets the page
         bookWrapper.innerHTML = '';
 
@@ -185,6 +187,7 @@ const myLibrary = (() => {
         updateRead.setAttribute('id', 'updateRead');
         updateRead.setAttribute('type', 'checkbox');
 
+        //Checks the checkbox if the book has already been read
         if (hasBeenRead){
             updateRead.checked = true;
         }
@@ -194,8 +197,6 @@ const myLibrary = (() => {
         const updateAdditionalInfo = document.createElement('textarea');
         updateAdditionalInfoLabel.setAttribute('for', 'additInfo');
         updateAdditionalInfo.setAttribute('id', 'additInfo');
-
-
         updateAdditionalInfo.value = extra.textContent.replace('Additional Information: ', '');
         updateAdditionalInfoLabel.innerHTML = "<strong>Update the below Additional Information:</strong> ";
 
@@ -224,20 +225,12 @@ const myLibrary = (() => {
         const updateRead = document.querySelector('#updateRead');
         const updateAddInfo = document.querySelector('#additInfo');
         let arr = [validate.checkReadStatus(updateRead), validate.additionalInfo(updateAddInfo)];
-        console.log('new data')
-        console.table(arr);
 
-
-        //Now I need to update the book object... can I do that?
-        console.log('Old library');
-        console.table(myLibrary);
-
+        //Updates the book in the library array
         myLibrary[index].read = arr[0];
         myLibrary[index].addInfo = arr[1];
 
-
-        console.log('New library');
-        console.table(myLibrary);
+        //Saves the library, updates it in the DOM, and reverts the screen back to viewing the details of the book
         saveLibrary();
         displayLibrary();
         viewBook(index);
@@ -274,7 +267,7 @@ const myLibrary = (() => {
         localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
     }
 
-    //private method to load myLibrary
+    //method to load myLibrary. Used onLoad
     const loadLibrary = () => {
         let library = JSON.parse(localStorage.getItem('myLibrary'));
         if (library === null) {
@@ -294,8 +287,8 @@ const myLibrary = (() => {
 
         //Validates each of the inputs and either throws an error or returns an array of the results
         let arr = [validate.validateTitle(doesTitleExist()), validate.validateAuthor(), validate.validatePages(), validate.checkReadStatus(read), validate.additionalInfo(addInfo)];
-        console.log[arr];
-
+ 
+        //Sets arr to an empty array if any of the items failed validation
         arr.forEach(item => {
             if (item === null) {
                 arr = [];
@@ -303,7 +296,6 @@ const myLibrary = (() => {
         });
 
         return arr;
-
     };
 
         //Checks if the book already exists in the library
@@ -434,38 +426,31 @@ const validate = (() => {
 
 
 
-let overlayOn = false;
 
 const overlay = (() => {
-
+    
     const on = () => {
         document.querySelector('.overlay').style.display = "flex";
-        overlayOn = true;
     }
 
     const off = () => {
         document.querySelector('.overlay').style.display = "none";
-        overlayOn = false;
     }
 
     const addBookOn = () => {
         document.querySelector('#formHolder').style.display = "flex";
-        overlayOn = true;
     }
 
     const addBookOff = () => {
         document.querySelector('#formHolder').style.display = "none";
-        overlayOn = false;
     }
 
     const editBookOn = () => {
         document.querySelector('.bookOverlayWrapper').style.display = "flex";
-        overlayOn = true;
     }
 
     const editBookOff = () => {
         document.querySelector('.bookOverlayWrapper').style.display = "none";
-        overlayOn = false;
     }
 
     return { on, off, addBookOn, addBookOff, editBookOn, editBookOff };
@@ -519,24 +504,19 @@ submitBookButton.addEventListener('click', function (e) {
 
 
 // For the Overlay
-
-
-// Query selector to turn the overlay on
+// Query selector to turn the overlay on when adding a new book
 const overlayButton = document.querySelector('.newBookButton');
 overlayButton.addEventListener('click', () => {
-    if (!overlayOn) {
         overlay.on();
         overlay.addBookOn();
-    }
 });
 
 //Query selector to close the overlay
 const closeButton = document.querySelector('#closeOverlay');
 closeButton.addEventListener('click', () => {
-    if (overlayOn) {
         overlay.off();
         overlay.addBookOff();
-    }
+    
 
 });
 
@@ -549,22 +529,19 @@ function hasClass(elem, className) {
 const additionalInfoButtons = document.querySelectorAll('.infoButton');
 bookWrapper.addEventListener('click', function (e) {
     if (hasClass(e.target, 'infoButton')) {
-        let index = e.target.id;        //Grabs the index so that we can pull up the correct book - implement later
+        let index = e.target.id;        //Grabs the index so that we can pull up the correct book
         // turns on the overlay
-        if (!overlayOn) {
             overlay.on();
             overlay.editBookOn();
             myLibrary.viewBook(index);
-        }
+        
     }
 });
 
 const closeEditOverlay = document.querySelector('#closeEditOverlay');
 closeEditOverlay.addEventListener('click', () => {
-    if (overlayOn) {
         overlay.off();
         overlay.editBookOff();
-    }
 });
 
 
@@ -574,9 +551,6 @@ closeEditOverlay.addEventListener('click', () => {
 
 // event handlers for the delete book buttons and update read status buttons
 
-
-
-const removeButtons = document.querySelectorAll('.delButton');
 bookWrapper.addEventListener('click', function (e) {
     if (hasClass(e.target, 'delButton')) {
         let index = e.target.id;
@@ -585,7 +559,6 @@ bookWrapper.addEventListener('click', function (e) {
 });
 
 // Updates the book
-const updateButtons = document.querySelectorAll('.updateButton');
 buttonHolder.addEventListener('click', function (e) {
     if (hasClass(e.target, 'updateButton')) {
         let index = e.target.id;
@@ -594,7 +567,6 @@ buttonHolder.addEventListener('click', function (e) {
 })
 
 //Event listener to save (saveUpdate button) the newly updated data
-const saveUpdateButtons = document.querySelectorAll('.saveUpdate');
 buttonHolder.addEventListener('click', function (e) {
     if (hasClass(e.target, 'saveUpdate')) {
         let index = e.target.id;
