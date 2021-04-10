@@ -1,3 +1,7 @@
+//Error handling in real time
+//responsiveness
+
+
 //Section for Bookfactory
 const bookFactory = (title, author, pages, read, addInfo) => {
     return { title, author, pages, read, addInfo };
@@ -293,7 +297,7 @@ const myLibrary = (() => {
     const validateData = () => {
 
         //Validates each of the inputs and either throws an error or returns an array of the results
-        let arr = [validate.validateTitle(), validate.validateAuthor(), validate.validatePages(), validate.checkReadStatus(read), validate.additionalInfo(addInfo)];
+        let arr = [validate.validateTitle(doesTitleExist()), validate.validateAuthor(), validate.validatePages(), validate.checkReadStatus(read), validate.additionalInfo(addInfo)];
         console.log[arr];
 
         arr.forEach(item => {
@@ -306,6 +310,19 @@ const myLibrary = (() => {
 
     };
 
+        //Checks if the book already exists in the library
+        const doesTitleExist = () => {
+
+            let noBook = true;
+            myLibrary.forEach(book => {
+                if (title.value === book.title){
+                    title.classList.add('error');
+                    titleError.textContent = 'This book is already in the library';
+                    noBook = false
+                }
+            });
+            return noBook;
+        }
 
     //Private method to clear the form fields
     const clearForm = () => {
@@ -339,8 +356,12 @@ const validate = (() => {
     };
 
     //Validates the title
-    const validateTitle = () => {
-        if (title.value === '') {
+    const validateTitle = (titleTest) => {
+
+        if (!titleTest){
+            return null;
+        }
+        else if (title.value === '') {
             title.classList.add('error');
             titleError.textContent = 'Please enter a title';
             return null;
@@ -356,6 +377,7 @@ const validate = (() => {
             return title.value;
         }
     }
+
 
     //validates the author
     const validateAuthor = () => {
